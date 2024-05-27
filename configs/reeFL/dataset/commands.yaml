@@ -1,0 +1,69 @@
+server:
+  class: src.server.Server
+  client_manager:
+    class: src.server.client_managers.SimpleClientManager
+    args: {}
+  strategy:
+    class: src.server.strategies.EarlyExitFedAvg
+    args:
+      min_fit_clients: 25 # clients_per_round
+data:
+  class: src.data.CommandsDataset
+  args:
+    path_to_data: /datasets/ReeFL
+    dataset_fl_root: / # will be overwritten
+    unseen: False
+    version: 2
+    max_train: 250
+    max_unseen: 50
+    classes: 12
+    val_ratio: 0.0
+    pre_partition: True 
+models:
+  net:
+    class: src.models.reefl_vit_template
+    args:
+      base_model: deit_small_patch16
+      patch_size: 16
+      depth: 12
+      no_of_exits: 12
+      accumulator: 
+        args: 
+          num_classes: 12
+      adapter: null
+      freeze_base_model: True
+    optimizer:
+      class: torch.optim.SGD
+      args:
+        momentum: 0.0
+        weight_decay: !!float 0.0
+app:
+  class: src.apps.ReeFLClassificationApp
+  args: 
+    mode: multi_tier # multi_iter, maximum
+    save_log_file: reefl_results.pkl
+  on_fit:
+    cos_lr_decay: True
+    start_lr: 0.05 # training LR
+    min_lr: 0.001 # minimum LR after decay
+  on_evaluate:
+    finetune_epochs: [1,2,3,4,5]
+    lr: 0.001 # to be tuned for personalized performance
+  eval_fn:
+    batch_size: 32 # batch size for centralized evaluation
+  run:
+    num_rounds: 1000
+    test_every_n: 500 # global_eval_every_n_rounds
+    save_every_n: null # save every n rounds
+  client:
+    class: src.apps.clients.ReeFLClassificationClient
+    args: 
+      local_epochs : 1
+      batch_size : 32
+      kl_loss: ''
+simulation:
+  num_clients: 250
+wandb_args:
+  # name is defined in top-level.
+  entity: camlsys
+  project: 'reefl'

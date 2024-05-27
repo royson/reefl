@@ -1,0 +1,7 @@
+# for quick testing runs
+
+wandb_args:
+  project: 'test'
+  mode: 'disabled'
+name: test
+save_run_id: false

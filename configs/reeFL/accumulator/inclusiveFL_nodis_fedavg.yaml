@@ -1,0 +1,12 @@
+app:
+  client:
+    args: 
+      kl_loss: ''
+models:
+  net:
+    args:
+      last_exit_only: True
+      accumulator:
+        class: src.models.NormAndLinear 
+        layerwise: True
+        args: {}

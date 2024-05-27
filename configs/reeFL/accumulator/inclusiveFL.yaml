@@ -1,0 +1,13 @@
+server:
+  strategy:
+    class: src.server.strategies.InclusiveFL
+app:
+  class: src.apps.InclusiveFLClassificationApp
+models:
+  net:
+    args:
+      last_exit_only: True
+      accumulator:
+        class: src.models.NormAndLinear 
+        layerwise: True
+        args: {}

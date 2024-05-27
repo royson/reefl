@@ -1,0 +1,6 @@
+models:
+  net:
+    args:
+      adapter: 
+        name: ssf
+        args: {}

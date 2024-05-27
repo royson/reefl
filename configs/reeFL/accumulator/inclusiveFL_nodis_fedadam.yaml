@@ -1,0 +1,21 @@
+server:
+  strategy:
+    args:
+      aggregation: fedadam
+      aggregation_args:
+        beta_1: 0.9
+        beta_2: 0.999
+        tau: 0.000001
+        eta: 0.001
+app:
+  client:
+    args: 
+      kl_loss: ''
+models:
+  net:
+    args:
+      last_exit_only: True
+      accumulator:
+        class: src.models.NormAndLinear 
+        layerwise: True
+        args: {}

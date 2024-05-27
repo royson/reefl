@@ -1,0 +1,17 @@
+server:
+  strategy:
+    class: src.server.strategies.ScaleFLFedAvg
+app:
+  class: src.apps.ScaleFLClassificationApp
+  client:
+    args: 
+      kl_loss: 'forward'
+      kl_weight: 0.05
+      kl_softmax_temp: 3
+models:
+  net:
+    args:
+      accumulator:
+        class: src.models.NormAndLinear 
+        layerwise: True
+        args: {}

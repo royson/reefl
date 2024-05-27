@@ -1,0 +1,13 @@
+server:
+  class: src.server.Server
+  client_manager:
+    class: src.server.client_managers.BudgetClientManager
+    args:
+      max_exit_budget: null
+models:
+  net:
+    args:
+      accumulator:
+        class: src.models.NormAndLinear 
+        layerwise: True
+        args: {}

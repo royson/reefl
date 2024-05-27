@@ -1,0 +1,9 @@
+models:
+  net:
+    args:
+      adapter: 
+        name: pa
+        args:
+          r: 32
+          adapter_layernorm_option: null
+          add_residual: False

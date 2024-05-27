@@ -1,0 +1,9 @@
+models:
+  net:
+    class: src.models.reefl_vim_template
+    args:
+      base_model: vim_tiny
+      depth: 24
+app:
+  on_fit:
+    start_lr: 0.01

@@ -1,0 +1,8 @@
+models:
+  net:
+    args:
+      adapter: 
+        name: lora
+        args:
+          r: 32
+          lora_alpha: 64

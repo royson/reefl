@@ -1,0 +1,19 @@
+app:
+  client:
+    args: 
+      kl_loss: dynamic_ma
+models:
+  net:
+    args:
+      accumulator:
+        class: src.models.Ree
+        layerwise: False
+        args: 
+          recurrent_steps: 1
+          heads: 8
+          modulation: True
+          exit_head: normlinear
+          mode: add
+          depth: 1
+          attn_dim: 16
+          mlp_ratio: 1.35

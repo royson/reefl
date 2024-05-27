@@ -1,0 +1,25 @@
+server:
+  strategy:
+    class: src.server.strategies.EarlyExitFedDyn
+    args:
+      alpha: 0.1
+app:
+  client:
+    args: 
+      kl_loss: 'all'
+      aggregation: 'feddyn'
+      clip: 1.0
+  on_fit:
+    cos_lr_decay: True
+    start_lr: 0.1 # training LR
+    min_lr: 0.01 # minimum LR after decay
+models:
+  net:
+    args:
+      accumulator:
+        class: src.models.NormAndLinear 
+        layerwise: True
+        args: {}
+    optimizer:
+      args:
+        weight_decay: 0.001
